@@ -8,12 +8,12 @@ Book:
 import pandas as pd
 
 
-Function = type(lambda:0)
+Function = type(lambda: 0)
 
 
 class _Loc(object):
     """
-    For pandas-like slicing: loc[...], iloc[...] 
+    For pandas-like slicing: loc[...], iloc[...]
     """
 
     def __init__(self, caller, is_iloc=False):
@@ -23,26 +23,24 @@ class _Loc(object):
     def __getitem__(self, slicing):
         if self.is_iloc:
             return Book({
-                name: df.iloc.__getitem__(slicing)
-                 for name, df in self.caller.items()
+                name: df.iloc.__getitem__(slicing) 
+                for name, df in self.caller.items()
             })
         else:
             return Book({
-                name: df.loc.__getitem__(slicing)
-                 for name, df in self.caller.items()
+                name: df.loc.__getitem__(slicing) 
+                for name, df in self.caller.items()
             })
 
 
 def method_mapping(method):
-
     def method_mapper(self, *args, **kwargs):
         return Book({
             name: method(df_or_srs, *args, **kwargs)
-                for name, df_or_srs in self.items()
+            for name, df_or_srs in self.items()
         })
 
     return method_mapper
-
 
 
 class Book(dict):
@@ -50,13 +48,14 @@ class Book(dict):
     """
     Collection of pandas.DataFrame or pnadas.Series
     """
-    
+
     for method_name in dir(pd.DataFrame):
         method = getattr(pd.DataFrame, method_name)
 
-        if ( isinstance( method, property ) 
-             or method_name.startswith('_') 
-             or method_name in dir(dict) ):
+        if ( isinstance(method, property)
+             or method_name.startswith("_")
+             or method_name in dir(dict)
+            ):
             pass
 
         elif isinstance(method, Function):
