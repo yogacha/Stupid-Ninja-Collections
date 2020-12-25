@@ -19,6 +19,8 @@ See example code in `usage.ipynb`.
 + ## curry
 
   + ### ***args_post_application***, decorator
-    Partial application on kwargs. 
-    
+    **To get rid of over-nested function.**
+
+    Partial application on kwargs. See [magic](usage.ipynb) use of it.
+
     Ex: *f(a, b, \*, x=1, y=2) → f(x=1, y=2)(a, b)*
