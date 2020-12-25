@@ -1,5 +1,5 @@
-from typing import List, Callable, Hashable
-from functools import update_wrapper
+from typing import Callable
+from functools import partial, update_wrapper
 
 
 def args_post_application(wrapped: Callable):    
@@ -12,15 +12,8 @@ def args_post_application(wrapped: Callable):
         kwargs_acceptor(x=4, y=5, z=6)(1, 2, 3)
     """
     def kwargs_acceptor(**kwargs):
-
-        def wrapper(*args, **kw):
-            kw = {**kwargs, **kw}
-            return wrapped(*args, **kw)
-
-        # copy & update, not changing meta function
-        kwargs = {**wrapped.__kwdefaults__, **kwargs}
-        update_wrapper(wrapper, wrapped)
-
+        wrapper = partial(wrapped, **kwargs)
+        wrapper.__name__ = wrapped.__name__
         return wrapper
     
     update_wrapper(kwargs_acceptor, wrapped)
