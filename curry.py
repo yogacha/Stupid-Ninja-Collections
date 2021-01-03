@@ -2,7 +2,7 @@ from typing import Callable
 import functools
 
 
-def args_post_application(wrapped: Callable):    
+def keyword_first(wrapped: Callable):    
     """
     Partial applied keyword arguments of `wrapped` function.
 
@@ -17,7 +17,7 @@ def args_post_application(wrapped: Callable):
         return wrapper
     
     functools.update_wrapper(kwargs_acceptor, wrapped)
-    kwargs_acceptor.__doc__ = """NOTE: Post applied args, use kwargs only.\n\n"""
+    kwargs_acceptor.__doc__ = """NOTE: Pass kwargs only.\n\n"""
     if wrapped.__doc__:
         kwargs_acceptor.__doc__ += wrapped.__doc__
 

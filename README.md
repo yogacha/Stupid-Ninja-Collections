@@ -18,7 +18,7 @@ See example code in `usage.ipynb`.
 
 + ## curry
 
-  + ### ***args_post_application***, decorator
+  + ### ***keyword_first***, decorator
     **To get rid of over-nested function.**
 
     Partial application on kwargs. See [magic](usage.ipynb) use of it.
